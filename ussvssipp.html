@@ -150,10 +150,13 @@ function computeData(inf, mkt, ecnt, slr, age, ret, acc, swr) {
   let accinf = 1;
   
   const infrate = Math.pow(1 + inf, 1/12);
+
+  // Here's the updated line using 0.025 (2.5%) rather than 2.5
   const dbinf = Math.min(
-    Math.min(inf, 2.5) + Math.max(inf - 2.5, 0) / 2, 
+    Math.min(inf, 0.025) + Math.max(inf - 0.025, 0) / 2, 
     0.1
   );
+
   const dbrate = Math.pow(1 + dbinf, 1/12);
   const mktrate = Math.pow(1 + mkt, 1/12);
 
@@ -261,7 +264,7 @@ window.addEventListener('load', () => {
     document.getElementById(id).addEventListener('input', updateChart);
   });
 
-  // Buttons to adjust the denominator
+  // Buttons to adjust the denominator in the fraction
   document.getElementById('accMinus').addEventListener('click', () => {
     const currentDenom = getDenominator(document.getElementById('acc').value);
     setAccrualFraction(currentDenom + 1); // e.g., 1/75 => 1/76
